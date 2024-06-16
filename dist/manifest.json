@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "Jenkins Genie",
+  "description": "Filter Jenkins builds by user, branch, status, or date.",
+  "version": "1.0.0",
+  "action": {
+    "default_title": "Jenkins Genie",
+    "default_popup": "index.html",
+    "default_icon": "genie.png"
+  },
+  "icons": {},
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "cookies",
+    "webRequest",
+    "webRequestBlocking",
+    "https://freshsales.runwayci.com/*"
+  ],
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "host_permissions": [
+    "https://freshsales.runwayci.com/*"
+  ],
+  "content_scripts": [
+    {
+      "js": [
+        "assets/content-script-loader.main.jsx.96ba4076.a8a8e2d1.js"
+      ],
+      "matches": [
+        "https://blank.org/*",
+        "https://freshsales.runwayci.com/job/*/",
+        "https://freshsales.runwayci.com/*/job/*/"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "assets/main.4b1e792d.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://blank.org/*",
+        "https://freshsales.runwayci.com/*",
+        "https://freshsales.runwayci.com/*"
+      ],
+      "resources": [
+        "assets/jsx-runtime.ca9cbe6d.js",
+        "assets/main.jsx.96ba4076.js"
+      ],
+      "use_dynamic_url": true
+    }
+  ]
+}

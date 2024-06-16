@@ -1,0 +1,61 @@
+.filter-build-btn:hover {
+  background: rgb(0, 105, 0);
+}
+
+.glow-effect {
+  --glow-line-color: #fff;
+  --glow-line-thickness: 2px;
+  --glow-blur-color: green;
+  --glow-blur-size: 8px;
+  --container-offset: 100px;
+  position: relative;
+}
+
+.glow-container {
+  pointer-events: none;
+  position: absolute;
+  inset: calc(var(--container-offset) / -2);
+  width: calc(100% + var(--container-offset));
+  height: calc(100% + var(--container-offset));
+  /* outline: 3px solid red; */
+}
+
+.glow-blur,
+.glow-line {
+  width: calc(100% - var(--container-offset));
+  height: calc(100% - var(--container-offset));
+  x: calc(var(--container-offset) / 2);
+  y: calc(var(--container-offset) / 2);
+  rx: 8px;
+  fill: transparent;
+  stroke: black;
+  stroke-width: 3px;
+  stroke-dasharray: 20px 30px;
+  /* transition: stroke-dashoffset 2s; */
+  animation: glow-rotation-effect 2s linear infinite;
+}
+
+@keyframes glow-rotation-effect {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100px;
+  }
+}
+
+.glow-effect:hover .glow-blur,
+.glow-effect:hover .glow-line {
+  stroke-dashoffset: -65px;
+}
+
+.glow-line {
+  stroke: var(--glow-line-color);
+  stroke-width: var(--glow-line-thickness);
+}
+
+.glow-blur {
+  filter: blur(var(--glow-blur-size));
+  stroke: var(--glow-blur-color);
+  stroke-width: var(--glow-blur-size);
+}
