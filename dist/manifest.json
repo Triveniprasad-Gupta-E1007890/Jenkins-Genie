@@ -6,9 +6,16 @@
   "action": {
     "default_title": "Jenkins Genie",
     "default_popup": "index.html",
-    "default_icon": "genie.png"
+    "default_icon": {
+      "19": "genie.png",
+      "38": "genie.png"
+    }
   },
-  "icons": {},
+  "icons": {
+    "16": "genie.png",
+    "48": "genie.png",
+    "128": "genie.png"
+  },
   "permissions": [
     "activeTab",
     "tabs",
@@ -27,7 +34,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content-script-loader.main.jsx.96ba4076.a8a8e2d1.js"
+        "assets/content-script-loader.main.jsx.cd98cad1.86f9dc21.js"
       ],
       "matches": [
         "https://blank.org/*",
@@ -48,8 +55,8 @@
         "https://freshsales.runwayci.com/*"
       ],
       "resources": [
-        "assets/jsx-runtime.ca9cbe6d.js",
-        "assets/main.jsx.96ba4076.js"
+        "assets/jsx-runtime.9048b582.js",
+        "assets/main.jsx.cd98cad1.js"
       ],
       "use_dynamic_url": true
     }

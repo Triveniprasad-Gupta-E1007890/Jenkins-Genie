@@ -6,9 +6,16 @@
   "action": {
     "default_title": "Jenkins Genie",
     "default_popup": "index.html",
-    "default_icon": "genie.png"
+    "default_icon": {
+      "19": "genie.png",
+      "38": "genie.png"
+    }
   },
-  "icons": {},
+  "icons": {
+    "16": "genie.png",
+    "48": "genie.png",
+    "128": "genie.png"
+  },
   "permissions": [
     "activeTab",
     "tabs",
