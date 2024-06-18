@@ -3,4 +3,4 @@ A chrome extension tool to help you easily filter your Jenkins pipeline builds b
 
 ## Installation and Usage
 
-For detailed instructions on how to install and use Jenkins Genie, please refer to the [Jenkins Genie Documentation](link-to-your-detailed-documentation).
+For detailed instructions on how to install and use Jenkins Genie, please refer to the [Jenkins Genie Documentation](https://confluence.freshworks.com/x/-jgKHg).
