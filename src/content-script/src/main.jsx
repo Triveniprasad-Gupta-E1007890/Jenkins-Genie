@@ -8,7 +8,6 @@ import { tableTheme } from "./themes/tableTheme";
 import { inputTheme } from "./themes/inputTheme";
 
 const targetEle = document.querySelector("#breadcrumbs").parentElement;
-// const targetEle = document.querySelector("body");
 const app = document.createElement("div");
 app.id = "jjf-react-root";
 

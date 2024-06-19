@@ -20,9 +20,7 @@
     "activeTab",
     "tabs",
     "cookies",
-    "webRequest",
-    "webRequestBlocking",
-    "https://freshsales.runwayci.com/*"
+    "webRequest"
   ],
   "background": {
     "service_worker": "service-worker-loader.js",
@@ -34,7 +32,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/content-script-loader.main.jsx.cd98cad1.86f9dc21.js"
+        "assets/content-script-loader.main.jsx.a44cc434.41bf8784.js"
       ],
       "matches": [
         "https://blank.org/*",
@@ -56,7 +54,7 @@
       ],
       "resources": [
         "assets/jsx-runtime.9048b582.js",
-        "assets/main.jsx.cd98cad1.js"
+        "assets/main.jsx.a44cc434.js"
       ],
       "use_dynamic_url": true
     }

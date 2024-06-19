@@ -21,7 +21,9 @@ export default function ListContent({ buildList = [] }) {
       <Table variant="simple">
         <Thead position="sticky" top="0">
           <Tr>
-            <Th sx={{ color: "#ffffff !important" }}>Build ID ({buildList.length})</Th>
+            <Th sx={{ color: "#ffffff !important" }}>
+              Build ID ({buildList.length})
+            </Th>
             <Th sx={{ color: "#ffffff !important" }}>Branch</Th>
             <Th sx={{ color: "#ffffff !important" }}>User</Th>
             <Th sx={{ color: "#ffffff !important" }}>Date (IST)</Th>
@@ -31,7 +33,8 @@ export default function ListContent({ buildList = [] }) {
         <Tbody>
           {buildList.length ? (
             buildList.map((buildItem) => {
-              const { id, url, result, timestamp, branch, user } = buildItem;
+              const { id, url, result, timestamp, branch, user, ghLink } =
+                buildItem;
 
               const status = {
                 SUCCESS: "green",
@@ -52,14 +55,15 @@ export default function ListContent({ buildList = [] }) {
                   </Td>
                   <Td>
                     {branch !== "--" ? (
-                      <Link
-                        href={`https://github.com/freshdesk/freshsales-webframe-automation/tree/${branch}`}
-                        target="_blank"
-                      >
-                        {branch}
-                      </Link>
+                      ghLink ? (
+                        <Link href={ghLink} target="_blank">
+                          {branch}
+                        </Link>
+                      ) : (
+                        branch
+                      )
                     ) : (
-                      'N/A'
+                      "N/A"
                     )}
                   </Td>
                   <Td>{user}</Td>
@@ -74,7 +78,7 @@ export default function ListContent({ buildList = [] }) {
                         {result}
                       </Badge>
                     ) : (
-                      'N/A'
+                      "N/A"
                     )}
                   </Td>
                 </Tr>

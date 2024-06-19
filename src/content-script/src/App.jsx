@@ -1,7 +1,7 @@
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Icon, useDisclosure } from "@chakra-ui/react";
 import ListModal from "./components/ListModal";
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -20,9 +20,7 @@
     "activeTab",
     "tabs",
     "cookies",
-    "webRequest",
-    "webRequestBlocking",
-    "https://freshsales.runwayci.com/*"
+    "webRequest"
   ],
   "background": {
     "service_worker": "src/content-script/src/background.js"

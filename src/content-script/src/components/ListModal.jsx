@@ -53,7 +53,7 @@ export default function ListModal({
         if (!buildList.length) {
           setIsApiLoading(true);
           const { data } = await axios.get(
-            `${currentTabUrl}/api/json?tree=builds[id,result,url,timestamp,actions[parameters[name,value],causes[userName,userId]]{0,3}]`
+            `${currentTabUrl}api/json?tree=builds[id,result,url,timestamp,actions[parameters[name,value],causes[userName,userId],remoteUrls{0,1}]{0,7}]`
           );
 
           const buildListData = appendBuildDetails(data);
@@ -66,25 +66,45 @@ export default function ListModal({
   }, []);
 
   function appendBuildDetails(data) {
+    const buildWithGhLink = data.builds.find(buildItem => buildItem?.actions.find(actionItem => actionItem?.remoteUrls));
+    let [ghLink] = buildWithGhLink?.actions?.find(actionItem => actionItem?.remoteUrls)?.remoteUrls || [];
+    if (ghLink) {
+      ghLink = `https://github.com/${ghLink.split(":")[1].split('.')[0]}/tree/`;
+    }
+    
     const builds = data.builds.map((buildItem) => {
       if (!buildItem.id) {
         return null;
       }
 
       const { actions, id, url, result, timestamp } = buildItem;
-      const [branchDetail1, userDetail, branchDetail2] = actions;
+      const userDetail = actions[1];
 
-      const branch = branchDetail1.parameters
-        ? branchDetail1.parameters.find((param) => param.name === "BRANCH")
-            .value
-        : branchDetail2.parameters
-        ? branchDetail2.parameters.find((param) => param.name === "BRANCH")
-            .value
-        : "--";
+      const parameters = actions.find(
+        (actionItem) => actionItem.parameters
+      )?.parameters;
 
-      const user = userDetail.causes
-        ? userDetail.causes[0].userName
-        : "Full Run";
+      const branch =
+        parameters?.find(
+          (param) =>
+            param.name === "BRANCH" ||
+            param.name === "GIT_BRANCH" ||
+            param.name === "ghprbSourceBranch"
+        )?.value || "--";
+
+      let user = parameters?.find(
+        (param) => param.name === "ghprbTriggerAuthor"
+      )?.value;
+      
+      if (!user) {
+        user = parameters?.find(
+          (param) => param.name === "ghprbPullAuthorLogin"
+        )?.value;
+      }
+
+      if (!user) {
+        user = userDetail.causes ? userDetail.causes[0].userName : "N/A";
+      }
 
       return {
         id,
@@ -93,6 +113,7 @@ export default function ListModal({
         timestamp,
         branch,
         user,
+        ghLink: ghLink ? ghLink + branch : null
       };
     });
 
@@ -148,7 +169,7 @@ export default function ListModal({
         }
 
         setfilteredBuildList(filteredData);
-      }, 500);
+      }, 300);
     }
   }, [branchUserStatusVal, dateVal]);
 
@@ -191,7 +212,7 @@ export default function ListModal({
                         }}
                         onClick={() => {
                           setBranchUserStatusVal("");
-                          document.querySelector('input#textInput').focus();
+                          document.querySelector("input#textInput").focus();
                         }}
                       >
                         <SmallCloseIcon />
