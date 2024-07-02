@@ -15,19 +15,17 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 
-export default function ListContent({ buildList = [] }) {
+export default function ListContent({ buildList = [], showUtcFormat }) {
   return (
     <TableContainer overflowX="unset" overflowY="unset">
       <Table variant="simple">
         <Thead position="sticky" top="0">
           <Tr>
-            <Th sx={{ color: "#ffffff !important" }}>
-              Build ID ({buildList.length})
-            </Th>
-            <Th sx={{ color: "#ffffff !important" }}>Branch</Th>
-            <Th sx={{ color: "#ffffff !important" }}>User</Th>
-            <Th sx={{ color: "#ffffff !important" }}>Date (IST)</Th>
-            <Th sx={{ color: "#ffffff !important" }}>Status</Th>
+            <Th>Build ID ({buildList.length})</Th>
+            <Th>Branch</Th>
+            <Th>User</Th>
+            <Th>Date ({showUtcFormat ? "UTC" : "IST"})</Th>
+            <Th>Status</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -42,9 +40,9 @@ export default function ListContent({ buildList = [] }) {
                 FAILURE: "orange",
               };
 
-              const formatedDate = dayjs(timestamp).format(
-                "D MMM YYYY, HH:mm:ss"
-              );
+              const formatedDate = showUtcFormat
+                ? dayjs(timestamp).utc().format("D MMM YYYY, HH:mm:ss")
+                : dayjs(timestamp).format("D MMM YYYY, HH:mm:ss");
 
               return (
                 <Tr key={id}>

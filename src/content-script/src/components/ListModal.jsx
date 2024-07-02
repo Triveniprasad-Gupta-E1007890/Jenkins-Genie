@@ -3,9 +3,14 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  IconButton,
   Input,
   InputGroup,
   InputRightElement,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,6 +18,8 @@ import {
   ModalHeader,
   ModalOverlay,
   SkeletonText,
+  Switch,
+  useColorMode,
 } from "@chakra-ui/react";
 import ListContent from "./ListContent";
 import { useEffect, useRef, useState } from "react";
@@ -21,7 +28,7 @@ import axios from "axios";
 import sampleData from "./sampleData.json";
 import dayjs from "dayjs";
 import { css } from "@emotion/react";
-import { SmallCloseIcon } from "@chakra-ui/icons";
+import { SettingsIcon, SmallCloseIcon } from "@chakra-ui/icons";
 
 export default function ListModal({
   isOpen,
@@ -32,6 +39,9 @@ export default function ListModal({
   const [filteredBuildList, setfilteredBuildList] = useState([]);
   const [isApiLoading, setIsApiLoading] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
+  const [showUtcFormat, setShowUtcFormat] = useState(false);
+
+  const { colorMode, toggleColorMode } = useColorMode();
 
   useEffect(() => {
     // Get active tab url
@@ -66,12 +76,16 @@ export default function ListModal({
   }, []);
 
   function appendBuildDetails(data) {
-    const buildWithGhLink = data.builds.find(buildItem => buildItem?.actions.find(actionItem => actionItem?.remoteUrls));
-    let [ghLink] = buildWithGhLink?.actions?.find(actionItem => actionItem?.remoteUrls)?.remoteUrls || [];
+    const buildWithGhLink = data.builds.find((buildItem) =>
+      buildItem?.actions.find((actionItem) => actionItem?.remoteUrls)
+    );
+    let [ghLink] =
+      buildWithGhLink?.actions?.find((actionItem) => actionItem?.remoteUrls)
+        ?.remoteUrls || [];
     if (ghLink) {
-      ghLink = `https://github.com/${ghLink.split(":")[1].split('.')[0]}/tree/`;
+      ghLink = `https://github.com/${ghLink.split(":")[1].split(".")[0]}/tree/`;
     }
-    
+
     const builds = data.builds.map((buildItem) => {
       if (!buildItem.id) {
         return null;
@@ -95,7 +109,7 @@ export default function ListModal({
       let user = parameters?.find(
         (param) => param.name === "ghprbTriggerAuthor"
       )?.value;
-      
+
       if (!user) {
         user = parameters?.find(
           (param) => param.name === "ghprbPullAuthorLogin"
@@ -113,7 +127,7 @@ export default function ListModal({
         timestamp,
         branch,
         user,
-        ghLink: ghLink ? ghLink + branch : null
+        ghLink: ghLink ? ghLink + branch : null,
       };
     });
 
@@ -248,6 +262,42 @@ export default function ListModal({
                   onChange={handleInputChange}
                 />
               </FormControl>
+
+              <Menu
+                closeOnSelect={false}
+                autoSelect={false}
+                placement="bottom-end"
+              >
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<SettingsIcon />}
+                  variant="outline"
+                  ml="auto"
+                />
+                <MenuList>
+                  <MenuItem
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <FormLabel htmlFor="dark-mode" mb="0" cursor="pointer" w='100%'>
+                      Dark mode
+                    </FormLabel>
+                    <Switch id="dark-mode" isChecked={colorMode === "dark"} onChange={toggleColorMode} />
+                  </MenuItem>
+                  <MenuItem
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <FormLabel htmlFor="dark-mode" mb="0" cursor="pointer" w='100%'>
+                      UTC format
+                    </FormLabel>
+                    <Switch id="utc-format" isChecked={showUtcFormat} onChange={() => setShowUtcFormat(!showUtcFormat)} />
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </Flex>
 
             {isApiLoading ? (
@@ -259,6 +309,7 @@ export default function ListModal({
               />
             ) : (
               <ListContent
+                showUtcFormat={showUtcFormat}
                 buildList={renderFiltered ? filteredBuildList : buildList}
               />
             )}

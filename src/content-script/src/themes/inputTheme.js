@@ -8,6 +8,12 @@ const baseStyle = definePartsStyle({
   // define the part you're going to style
   element: {
     cursor: 'pointer'
+  },
+  field: {
+    border: '1px solid #909090 !important',
+    _dark: {
+      color: '#e3e3e3'
+    }
   }
 })
 

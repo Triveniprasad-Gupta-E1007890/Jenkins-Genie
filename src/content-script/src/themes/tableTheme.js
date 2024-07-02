@@ -12,6 +12,10 @@ const baseStyle = definePartsStyle({
       th: {
         bgColor: '#1E8422',
         fontSize: '14px',
+        color: '#ffffff !important',
+        _dark: {
+          bgColor: '#195b3d',
+        }
         // color: '#ffffff' applied inline style
         },
       'th:first-child': {
@@ -28,17 +32,38 @@ const baseStyle = definePartsStyle({
     borderBottomRightRadius: '8px',
     tr: {
       td: {
-        border: 'unset'
+        border: 'unset',
+        _dark: {
+          color: '#e3e3e3 !important'
+        },
+
+        a: {
+          _dark: {
+            color: '#42a847 !important'
+          }
+        } ,
+
+        p: {
+          _dark: {
+            color: '#e3e3e3 !important'
+          }
+        } 
       }
     },
     'tr:nth-child(2n-1)': {
       td: {
-        backgroundColor: '#f9f9f9 !important'
+        backgroundColor: '#f9f9f9 !important',
+        _dark: {
+          backgroundColor: '#37465f !important',
+        }
       }
     },
     'tr:nth-child(2n)': {
       td: {
-        backgroundColor: '#EFEFEF !important'
+        backgroundColor: '#EFEFEF !important',
+        _dark: {
+          backgroundColor: '#364257 !important',
+        }
       }
     },
     'tr:last-child': {

@@ -26,11 +26,11 @@
     "service_worker": "src/content-script/src/background.js"
   },
   "host_permissions": [
-    "https://freshsales.runwayci.com/*"
+    "https://*.runwayci.com/*"
   ],
   "content_scripts": [
     {
-      "matches": ["https://blank.org/*", "https://freshsales.runwayci.com/job/*/", "https://freshsales.runwayci.com/*/job/*/"],
+      "matches": ["https://blank.org/*", "https://*.runwayci.com/job/*/", "https://*.runwayci.com/*/job/*/"],
       "js": ["src/content-script/src/main.jsx"],
       "run_at": "document_end"
     }

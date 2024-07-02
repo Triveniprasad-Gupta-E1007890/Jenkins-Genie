@@ -10,12 +10,17 @@ const { definePartsStyle, defineMultiStyleConfig } =
 //     width: '800px'
 //   },
 // })
-const sizes = {
-  xl: definePartsStyle({ dialog: {
-    minW: 'fit-content'
-  } })
+const baseStyle = {
+  // xl: definePartsStyle({ dialog: {
+  //   minW: 'fit-content'
+  // } })
+  dialog: {
+    _dark: {
+      color: '#e3e3e3'
+    }
+  }
 }
 
 export const modalTheme = defineMultiStyleConfig({
-  sizes,
+  baseStyle,
 })
