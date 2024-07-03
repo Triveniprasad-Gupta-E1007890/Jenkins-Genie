@@ -27,7 +27,7 @@
     "type": "module"
   },
   "host_permissions": [
-    "https://freshsales.runwayci.com/*"
+    "https://*.runwayci.com/*"
   ],
   "content_scripts": [
     {
@@ -35,9 +35,8 @@
         "assets/content-script-loader.main.jsx.a44cc434.41bf8784.js"
       ],
       "matches": [
-        "https://blank.org/*",
-        "https://freshsales.runwayci.com/job/*/",
-        "https://freshsales.runwayci.com/*/job/*/"
+        "https://*.runwayci.com/job/*/",
+        "https://*.runwayci.com/*/job/*/"
       ],
       "run_at": "document_end",
       "css": [
@@ -48,9 +47,8 @@
   "web_accessible_resources": [
     {
       "matches": [
-        "https://blank.org/*",
-        "https://freshsales.runwayci.com/*",
-        "https://freshsales.runwayci.com/*"
+        "https://*.runwayci.com/*",
+        "https://*.runwayci.com/*"
       ],
       "resources": [
         "assets/jsx-runtime.9048b582.js",

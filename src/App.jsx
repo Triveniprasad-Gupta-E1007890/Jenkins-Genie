@@ -28,10 +28,10 @@ function App() {
           Navigate to the URL that matches the pattern:
           <ul>
             <li>
-              <code>https://freshsales.runwayci.com/job/*/</code>
+              <code>https://*.runwayci.com/job/*/</code>
             </li>
             <li>
-              <code>https://freshsales.runwayci.com/view/Automation/job/*/</code>
+              <code>https://*.runwayci.com/view/Automation/job/*/</code>
             </li>
           </ul>
         </li>
